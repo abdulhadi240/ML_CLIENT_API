@@ -4,4 +4,4 @@ pandas
 tensorflow
 scikit-learn
 fastapi
-uvicorn
+gunicorn
