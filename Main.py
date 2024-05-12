@@ -1,11 +1,12 @@
 #testapi
 from flask import Flask, request, jsonify
+from fastapi import FastAPI
 import tensorflow as tf
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
-app = Flask(__name__)
+app:FastAPI = FastAPI()
 #Global scaler for preprocessing
 scaler = MinMaxScaler(feature_range=(0, 1))
 
@@ -58,7 +59,7 @@ def generate_date_dataframe(start_date):
 
 
 # model entry
-@app.route('/modelA/predict', methods=['POST'])
+@app.post('/modelA/predict')
 def predict():
     new_data = request.json
 
@@ -96,11 +97,6 @@ def predict():
     return jsonify(Answer_df.to_dict(orient='records'))
 
 
-if __name__ == '__main__':
-    host = '0.0.0.0'
-    port = 5000
-    app.run(debug=True)
-    app.run(host=host, port=port)
 
 
 
